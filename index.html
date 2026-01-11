@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Wing - Empowering Legal Minds</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --primary-white: #ffffff;
+            --gold-accent: #d4af37;
+            --light-gray: #f5f5f5;
+            --dark-gray: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: var(--primary-white);
+            color: var(--primary-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10000;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            max-width: 2800px;
+            margin: 0 auto;
+            min-height: 100px;
+
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo-container:hover {
+            transform: scale(1.03);
+        }
+
+        .logo-image {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            border: 3px solid var(--gold-accent);
+            padding: 1px;
+            background: var(--primary-white);
+            box-shadow:
+                0 0 30px rgba(212, 175, 55, 0.4),
+                0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            object-fit: cover;
+        }
+
+        .logo-container:hover .logo-image {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow:
+                0 0 50px rgba(212, 175, 55, 0.6),
+                0 15px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .logo-text h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-white);
+            font-size: 1.7rem;
+            letter-spacing: 6px;
+            font-weight: 900;
+            text-shadow:
+                2px 2px 4px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, #ffffff 0%, var(--gold-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-tagline {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--gold-accent);
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 4px;
+            align-items: center;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            color: var(--primary-white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1rem 1.8rem;
+            position: relative;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: block;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(255, 255, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 6px;
+            z-index: -1;
+        }
+
+        nav a:hover {
+            color: var(--gold-accent);
+            transform: translateY(-2px);
+        }
+
+        nav a:hover::before {
+            width: 80%;
+        }
+
+        nav a:hover::after {
+            opacity: 1;
+        }
+
+        nav a.active {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 255, 255, 0.1));
+            color: var(--gold-accent);
+            box-shadow:
+                inset 0 0 20px rgba(212, 175, 55, 0.1),
+                0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a.active::before {
+            width: 80%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(212, 175, 55, 0.15);
+        }
+
+        .mobile-menu-toggle span {
+            width: 32px;
+            height: 3px;
+            background: var(--gold-accent);
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(9px, -9px);
+        }
+
+        /* PAGE ANIMATIONS */
+        .page {
+            display: none;
+            animation: luxuryFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 100px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes luxuryFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* EPIC HERO SECTION */
+        .hero-home {
+            height: 100vh;
+            background:
+                linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(26, 26, 26, 0.8) 100%),
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                var(--primary-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-home::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.03) 2px, rgba(212, 175, 55, 0.03) 4px);
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(50px);
+            }
+        }
+
+        .hero-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold-accent);
+            border-radius: 50%;
+            animation: float 20s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(100px, -100px);
+            }
+
+            50% {
+                transform: translate(-50px, -200px);
+            }
+
+            75% {
+                transform: translate(150px, -150px);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--primary-white);
+            z-index: 10;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-logo-display {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 3rem;
+            border-radius: 50%;
+            border: 5px solid var(--gold-accent);
+            padding: 8px;
+            background: var(--primary-white);
+            box-shadow:
+                0 0 60px rgba(212, 175, 55, 0.5),
+                0 20px 80px rgba(0, 0, 0, 0.7);
+            animation: heroLogoPulse 3s ease-in-out infinite;
+            object-fit: cover;
+        }
+
+        @keyframes heroLogoPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow:
+                    0 0 60px rgba(212, 175, 55, 0.5),
+                    0 20px 80px rgba(0, 0, 0, 0.7);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow:
+                    0 0 90px rgba(212, 175, 55, 0.7),
+                    0 25px 100px rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: 20px;
+            margin-bottom: 2rem;
+            text-shadow:
+                0 0 30px rgba(212, 175, 55, 0.5),
+                4px 4px 15px rgba(0, 0, 0, 0.8);
+            animation: titleSlideDown 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #ffffff 0%, var(--gold-accent) 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: titleSlideDown 1.2s cubic-bezier(0.4, 0, 0.2, 1), gradientShift 4s ease infinite;
+        }
+
+        @keyframes titleSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            letter-spacing: 6px;
+            margin-bottom: 4rem;
+            font-weight: 300;
+            animation: subtitleSlideUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes subtitleSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.8rem 5rem;
+            background: linear-gradient(135deg, var(--gold-accent) 0%, #f4d03f 100%);
+            color: var(--primary-black);
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            border: 3px solid var(--gold-accent);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            box-shadow:
+                0 10px 40px rgba(212, 175, 55, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow:
+                0 20px 60px rgba(212, 175, 55, 0.6),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+            border-color: #f4d03f;
+        }
+
+        /* LUXURY ABOUT SECTION */
+        .about-home {
+            background: var(--primary-white);
+            padding: 180px 8%;
+            position: relative;
+        }
+
+        .about-home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+        }
+
+        .about-grid {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-black);
+        }
+
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--gold-accent), transparent);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+            color: #333333;
+            font-weight: 400;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            color: var(--primary-white);
+            padding: 4rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--primary-black);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.8s;
+        }
+
+        .stat-box:hover::before {
+            left: 100%;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold-accent);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, var(--gold-accent) 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-label {
+            font-size: 1.15rem;
+            letter-spacing: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* PREMIUM OBJECTIVES SECTION */
+        .objectives-section {
+            background: linear-gradient(180deg, #fafafa 0%, var(--primary-white) 100%);
+            padding: 180px 8%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 8rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-black);
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+        }
+
+        .objectives-grid {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+        }
+
+        .objective-card {
+            background: var(--primary-white);
+            padding: 5rem;
+            border-left: 8px solid var(--gold-accent);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .objective-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+
+        .objective-card::after {
+            content: '⚖';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 4rem;
+            opacity: 0.05;
+            transition: all 0.5s;
+        }
+
+        .objective-card:hover::before {
+            width: 100%;
+        }
+
+        .objective-card:hover::after {
+            opacity: 0.15;
+            transform: scale(1.2);
+        }
+
+        .objective-card:hover {
+            color: var(--primary-white);
+            transform: translateX(20px) translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            border-left-color: var(--gold-accent);
+        }
+
+        .objective-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .objective-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+        }
+
+        .objective-card p {
+            font-size: 1.18rem;
+            line-height: 2.1;
+        }
+
+        /* FOUNDER SECTION - LUXURY */
+        .founder-section {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            color: var(--primary-white);
+            padding: 180px 8%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .founder-section::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -15%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .founder-grid {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 8rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .founder-image-box {
+            text-align: center;
+        }
+
+        .founder-photo {
+            width: 360px;
+            height: 360px;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            border-radius: 50%;
+            margin: 0 auto 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 7rem;
+            color: var(--primary-black);
+            font-weight: 900;
+            border: 8px solid var(--gold-accent);
+            box-shadow:
+                0 0 60px rgba(212, 175, 55, 0.4),
+                0 30px 80px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .founder-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: fit;
+            border-radius: 50%;
+        }
+
+        .founder-photo:hover {
+            transform: scale(1.08) rotate(5deg);
+            box-shadow:
+                0 0 90px rgba(212, 175, 55, 0.6),
+                0 40px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        .founder-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gold-accent);
+        }
+
+        .founder-role {
+            font-size: 1.5rem;
+            color: #cccccc;
+            letter-spacing: 4px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .founder-message h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 3.5rem;
+            font-weight: 900;
+            position: relative;
+            display: inline-block;
+        }
+
+        .founder-message h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold-accent), transparent);
+        }
+
+        .founder-message p {
+            font-size: 1.35rem;
+            line-height: 2.4;
+            margin-bottom: 2.5rem;
+            color: #e0e0e0;
+        }
+
+        /* PAGE HERO - ENHANCED */
+        .page-hero {
+            background:
+                linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(26, 26, 26, 0.95) 100%),
+                radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            color: var(--primary-white);
+            padding: 220px 8% 140px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(212, 175, 55, 0.02) 2px,
+                    rgba(212, 175, 55, 0.02) 4px);
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 7rem;
+            font-weight: 900;
+            letter-spacing: 20px;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #ffffff 0%, var(--gold-accent) 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .page-hero p {
+            font-size: 2rem;
+            letter-spacing: 5px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        /* TEAM SECTION - PREMIUM */
+        .team-section {
+            padding: 180px 8%;
+            background: var(--primary-white);
+        }
+
+        .team-grid {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5rem;
+        }
+
+        .team-card {
+            background: linear-gradient(180deg, #fafafa 0%, var(--primary-white) 100%);
+            padding: 5rem 4rem;
+            text-align: center;
+            border: 3px solid var(--primary-black);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+
+        .team-card::after {
+            content: '⚖';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 5rem;
+            opacity: 0.03;
+            transition: all 0.5s;
+        }
+
+        .team-card:hover::before {
+            top: 0;
+        }
+
+        .team-card:hover::after {
+            opacity: 0.1;
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .team-card:hover {
+            transform: translateY(-20px);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold-accent);
+        }
+
+        .team-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-card:hover .member-name,
+        .team-card:hover .member-title {
+            color: var(--primary-white);
+        }
+
+        .member-avatar {
+            width: 170px;
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            border-radius: 50%;
+            margin: 0 auto 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: var(--gold-accent);
+            font-weight: 900;
+            border: 6px solid var(--gold-accent);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(212, 175, 55, 0.1);
+            overflow: hidden;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .team-card:hover .member-avatar {
+            background: linear-gradient(135deg, var(--gold-accent) 0%, #f4d03f 100%);
+            color: var(--primary-black);
+            transform: scale(1.15) rotate(360deg);
+            border-color: var(--primary-white);
+            box-shadow:
+                0 15px 60px rgba(212, 175, 55, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .member-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+
+        .member-title {
+            font-size: 1.2rem;
+            color: #666666;
+            letter-spacing: 3px;
+            transition: color 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .team-card:hover .member-title {
+            color: var(--gold-accent);
+        }
+
+        /* EVENTS SECTION - ULTRA LUXURY */
+        .events-showcase {
+            padding: 150px 8%;
+            background: linear-gradient(180deg, #fafafa 0%, var(--primary-white) 100%);
+        }
+
+        .event-mega-card {
+            max-width: 1600px;
+            margin: 0 auto 10rem;
+            background: var(--primary-white);
+            border: 6px solid var(--primary-black);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-mega-card:hover {
+            transform: translateY(-15px);
+            box-shadow:
+                0 50px 100px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold-accent);
+        }
+
+        .event-header-section {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            color: var(--primary-white);
+            padding: 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-header-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                    transparent 30%,
+                    rgba(212, 175, 55, 0.05) 50%,
+                    transparent 70%);
+            animation: shimmerSweep 6s infinite;
+        }
+
+        @keyframes shimmerSweep {
+
+            0%,
+            100% {
+                transform: translateX(-100%) translateY(-100%) rotate(0deg);
+            }
+
+            50% {
+                transform: translateX(100%) translateY(100%) rotate(180deg);
+            }
+        }
+
+        .event-title-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: 18px;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .event-tagline {
+            font-size: 2.2rem;
+            letter-spacing: 5px;
+            color: var(--gold-accent);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .event-date {
+            font-size: 1.8rem;
+            color: #999999;
+            letter-spacing: 4px;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        .event-body {
+            padding: 7rem;
+        }
+
+        .event-description {
+            font-size: 1.3rem;
+            line-height: 2.4;
+            margin-bottom: 5rem;
+            text-align: justify;
+            color: #333333;
+        }
+
+        .committees-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            margin-top: 5rem;
+        }
+
+        .committee-box {
+            background: linear-gradient(180deg, #fafafa 0%, var(--primary-white) 100%);
+            padding: 4.5rem;
+            border-left: 8px solid var(--gold-accent);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .committee-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            transition: width 0.5s;
+            z-index: 0;
+        }
+
+        .committee-box:hover::after {
+            width: 100%;
+        }
+
+        .committee-box:hover {
+            color: var(--primary-white);
+            transform: translateX(20px);
+            border-left-color: var(--gold-accent);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .committee-box>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .committee-box h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+        }
+
+        .committee-box p {
+            font-size: 1.15rem;
+            line-height: 2.2;
+        }
+
+        .event-highlights-box {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            color: var(--primary-white);
+            padding: 6rem;
+            margin-top: 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-highlights-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+        }
+
+        .event-highlights-box h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 3.5rem;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+            color: var(--gold-accent);
+        }
+
+        .highlights-list {
+            list-style: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlights-list li {
+            font-size: 1.5rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s;
+            display: flex;
+            align-items: center;
+        }
+
+        .highlights-list li:hover {
+            padding-left: 40px;
+            border-bottom-color: var(--gold-accent);
+            color: var(--gold-accent);
+        }
+
+        /* CONTACT SECTION - REDESIGNED LUXURY */
+        .contact-section {
+            padding: 120px 8%;
+            background: var(--primary-white);
+        }
+
+        .contact-info-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 5rem;
+            justify-items: center;
+        }
+
+        .contact-info-item {
+            text-align: center;
+            padding: 4rem 3rem;
+            background: transparent;
+            border-bottom: 3px solid var(--primary-black);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .contact-info-item a,
+        .contact-info-item p {
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+
+
+        .contact-info-item::before {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gold-accent);
+            transition: all 0.4s;
+            transform: translateX(-50%);
+        }
+
+        .contact-info-item:hover::before {
+            width: 100%;
+        }
+
+        .contact-info-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .contact-info-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            color: var(--gold-accent);
+            transition: transform 0.4s;
+        }
+
+        .contact-info-item:hover .contact-info-icon {
+            transform: scale(1.2);
+        }
+
+        .contact-info-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .contact-info-item a {
+            display: block;
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: 1.3rem;
+            margin: 1rem 0;
+            font-weight: 500;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .contact-info-item a:hover {
+            color: var(--gold-accent);
+            transform: translateX(5px);
+        }
+
+        .social-follow {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            color: var(--primary-white);
+            padding: 150px 8%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-follow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+        }
+
+        .social-follow h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 3rem;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+            color: var(--gold-accent);
+        }
+
+        .social-follow p {
+            font-size: 1.9rem;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+        }
+
+        .instagram-button {
+            display: inline-block;
+            padding: 2.2rem 6rem;
+            background: linear-gradient(135deg, var(--gold-accent) 0%, #f4d03f 100%);
+            color: var(--primary-black);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            border: 3px solid var(--gold-accent);
+            transition: all 0.5s;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+            box-shadow:
+                0 10px 40px rgba(212, 175, 55, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .instagram-button:hover {
+            transform: scale(1.12);
+            box-shadow:
+                0 20px 80px rgba(212, 175, 55, 0.6),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+            border-color: #f4d03f;
+        }
+
+        /* PLACEHOLDER PAGES */
+        .placeholder-page {
+            min-height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #fafafa 0%, var(--primary-white) 100%);
+            margin-top: 100px;
+        }
+
+        .placeholder-content {
+            text-align: center;
+            padding: 6rem;
+        }
+
+        .placeholder-content h1 {
+            font-size: 10rem;
+            margin-bottom: 4rem;
+            font-weight: 900;
+            animation: floatBounce 4s ease-in-out infinite;
+            filter: grayscale(100%);
+        }
+
+        @keyframes floatBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .placeholder-content p {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #666666;
+            font-style: italic;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        /* FOOTER - LUXURY */
+        footer {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
+            color: var(--primary-white);
+            text-align: center;
+            padding: 5rem;
+            border-top: 2px solid var(--gold-accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+        }
+
+        footer p {
+            font-size: 1.4rem;
+            margin: 1rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-tagline {
+            color: var(--gold-accent);
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            margin-top: 2rem;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        /* SCROLL TO TOP */
+        .scroll-top {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gold-accent) 0%, #f4d03f 100%);
+            color: var(--primary-black);
+            border: 3px solid var(--gold-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.4s;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            font-weight: 900;
+            box-shadow:
+                0 10px 40px rgba(212, 175, 55, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow:
+                0 20px 60px rgba(212, 175, 55, 0.6),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1400px) {
+            .hero-title {
+                font-size: 5rem;
+                letter-spacing: 15px;
+            }
+
+            .page-hero h1 {
+                font-size: 4.5rem;
+            }
+
+            .about-text h2,
+            .section-header h2 {
+                font-size: 3.5rem;
+            }
+
+            .event-title-main {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 4.5rem;
+                letter-spacing: 12px;
+            }
+
+            .about-grid,
+            .founder-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .objectives-grid,
+            .committees-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            nav {
+                padding: 1rem 4%;
+            }
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .logo-image {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+        }
+
+        .hero-logo-display {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .hero-logo-display {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo-image {
+                width: auto;
+                height: auto;
+            }
+
+            .member-avatar {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.8rem 4%;
+                min-height: 80px;
+            }
+
+            .logo-image {
+                width: 55px;
+                height: 55px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.6rem;
+                letter-spacing: 3px;
+                white-space: nowrap;
+            }
+
+            .logo-tagline {
+                font-size: 0.65rem;
+                white-space: nowrap;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 100px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 100px);
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 2rem 0;
+                transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                gap: 0;
+                border-top: 2px solid var(--gold-accent);
+            }
+
+            nav ul.mobile-active {
+                left: 0;
+            }
+
+            nav li {
+                width: 100%;
+                text-align: center;
+            }
+
+            nav a {
+                padding: 1.5rem;
+                width: 100%;
+                font-size: 0.95rem;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+
+            .hero-logo-display {
+                width: 100px;
+                height: 100px;
+            }
+
+            .cta-button {
+                padding: 1.2rem 2rem;
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+            }
+
+            .page-hero {
+                padding: 140px 5% 80px;
+            }
+
+            .page-hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+
+            .page-hero p {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+
+            .about-home {
+                padding: 80px 5%;
+            }
+
+            .about-text h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-text p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .stat-box {
+                padding: 2.5rem;
+            }
+
+            .stat-number {
+                font-size: 3.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.95rem;
+                letter-spacing: 2px;
+            }
+
+            .objectives-section {
+                padding: 80px 5%;
+            }
+
+            .section-header {
+                margin-bottom: 4rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .objective-card {
+                padding: 2.5rem;
+            }
+
+            .objective-card h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .objective-card p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .founder-section {
+                padding: 80px 5%;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-section {
+                padding: 80px 5%;
+            }
+
+            .team-card {
+                padding: 3rem 2rem;
+            }
+
+            .member-avatar {
+                width: 150px;
+                height: 150px;
+                font-size: 3.5rem;
+            }
+
+            .member-name {
+                font-size: 1.4rem;
+            }
+
+            .member-title {
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .events-showcase {
+                padding: 80px 5%;
+            }
+
+            .event-mega-card {
+                margin-bottom: 5rem;
+            }
+
+            .event-title-main {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .event-tagline {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+
+            .event-date {
+                font-size: 1rem;
+            }
+
+            .event-header-section {
+                padding: 3rem 2rem;
+            }
+
+            .event-body {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .event-description {
+                font-size: 1rem;
+                line-height: 1.8;
+                margin-bottom: 2rem;
+            }
+
+            .committee-box {
+                padding: 2rem;
+            }
+
+            .committee-box h4 {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .committee-box p {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+
+            .event-highlights-box {
+                padding: 3rem 2rem;
+                margin-top: 3rem;
+            }
+
+            .event-highlights-box h4 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .highlights-list li {
+                font-size: 1rem;
+                padding: 1rem 0;
+            }
+
+            .founder-photo {
+                width: 200px;
+                height: 200px;
+                font-size: 4rem;
+            }
+
+            .founder-name {
+                font-size: 1.8rem;
+            }
+
+            .founder-role {
+                font-size: 1.1rem;
+            }
+
+            .founder-message h2 {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .founder-message p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .contact-section {
+                padding: 80px 5%;
+            }
+
+            .contact-info-item {
+                padding: 2.5rem 2rem;
+            }
+
+            .contact-info-icon {
+                font-size: 3rem;
+            }
+
+            .contact-info-item h3 {
+                font-size: 1.4rem;
+            }
+
+            .contact-info-item a {
+                font-size: 1.1rem;
+            }
+
+            .social-follow {
+                padding: 80px 5%;
+            }
+
+            .social-follow h2 {
+                font-size: 3rem;
+                margin-bottom: 2rem;
+            }
+
+            .social-follow p {
+                font-size: 1.2rem;
+                margin-bottom: 3rem;
+            }
+
+            .instagram-button {
+                padding: 1.5rem 3rem;
+                font-size: 1.1rem;
+            }
+
+            .scroll-top {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 30px;
+                right: 30px;
+            }
+
+            .placeholder-content h1 {
+                font-size: 5rem;
+                margin-bottom: 2rem;
+            }
+
+            .placeholder-content p {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text h1 {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+
+            .logo-tagline {
+                font-size: 0.5rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .hero-subtitle {
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+            }
+
+            .cta-button {
+                padding: 1rem 1.5rem;
+                font-size: 0.8rem;
+            }
+
+            .placeholder-content h1 {
+                font-size: 4rem;
+            }
+
+            .placeholder-content p {
+                font-size: 1.5rem;
+            }
+
+            .about-text h2,
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .page-hero p {
+                font-size: 1rem;
+            }
+
+            .event-title-main {
+                font-size: 1.8rem;
+            }
+        }
+
+        .gallery-section {
+            padding: 120px 8%;
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin: 5rem 0 3rem;
+            text-align: center;
+            letter-spacing: 5px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border: 4px solid #000;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.08);
+            border-color: #d4af37;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo-container" onclick="showPage('home')">
+                <img src="lawwing assets/logo law.jpeg" alt="Law Wing Logo" class="logo-image"
+                    onerror="this.style.display='none'">
+                <div class="logo-text">
+                    <h1>LAW WING</h1>
+                    <div class="logo-tagline">Empowering Legal Minds</div>
+                </div>
+            </div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('team')">Team</a></li>
+                <li><a href="#" onclick="showPage('publications')">Publications</a></li>
+                <li><a href="#" onclick="showPage('news')">Legal News</a></li>
+                <li><a href="#" onclick="showPage('events')">Events</a></li>
+                <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</div>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <div class="hero-home">
+            <div class="hero-particles">
+                <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+                <div class="particle" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
+                <div class="particle" style="top: 40%; left: 30%; animation-delay: 4s;"></div>
+                <div class="particle" style="top: 70%; left: 60%; animation-delay: 6s;"></div>
+            </div>
+            <div class="hero-content">
+                <img src="https://i.imgur.com/placeholder-logo.jpg" alt="Law Wing" class="hero-logo-display"
+                    onerror="this.style.display='none'">
+                <h1 class="hero-title">LAW WING</h1>
+                <p class="hero-subtitle">EMPOWERING LEGAL MINDS | BUILDING FUTURE LEADERS</p>
+                <a href="#" class="cta-button" onclick="showPage('events')">EXPLORE OUR JOURNEY</a>
+            </div>
+        </div>
+
+        <div class="about-home">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>ABOUT<br>LAW WING</h2>
+                    <p>Law Wing is a registered student-led initiative committed to fostering legal consciousness,
+                        political literacy and participative leadership among youth through platforms like Quiz,
+                        Debates, Model United Nations (MUN) and Youth Parliament (YP).</p>
+                    <p>We strive to provide students with immersive experiences that promote a deeper understanding of
+                        national and international governance frameworks, legal systems, and socio-political issues.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">UNIVERSITIES</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">PARTICIPANTS</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">MAJOR EVENTS</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">YEARS LEGACY</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="objectives-section">
+            <div class="section-header">
+                <h2>OUR OBJECTIVES</h2>
+            </div>
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <h3>Legal Discourse & Democratic Dialogue</h3>
+                    <p>Facilitating legal discourse and democratic dialogue to create an inclusive space for
+                        participants to engage in contemporary legal and political debates and to nurture analytical
+                        thinking and effective communication through structured committee formats.</p>
+                </div>
+                <div class="objective-card">
+                    <h3>Spreading Legal Awareness</h3>
+                    <p>Spreading legal awareness and understanding to introduce students to the functioning of Indian
+                        legislative bodies and international institutions. To focus on pertinent issues such as human
+                        rights, constitutional law, public policy and global governance.</p>
+                </div>
+                <div class="objective-card">
+                    <h3>Building Future Leaders</h3>
+                    <p>Building a community of future leaders to bring together law students, political science
+                        enthusiasts, aspiring bureaucrats, and youth leaders for intellectual collaboration. To
+                        encourage leadership and teamwork through inter-collegiate and inter-school conferences.</p>
+                </div>
+                <div class="objective-card">
+                    <h3>Capacity Building Resources</h3>
+                    <p>Providing capacity-building resources to organize training workshops that equip participants with
+                        procedural knowledge of MUNs and YPs. To offer curated study materials, mentorship, and guided
+                        content to ensure effective participation and learning.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="founder-section">
+            <div class="founder-grid">
+                <div class="founder-image-box">
+                    <div class="founder-photo">
+                        <img src="data/FOUNDER REAL.jpeg">
+                    </div>
+                    <div class="founder-name">MR. DEV CHOUDHARY</div>
+                    <div class="founder-role">Founder & CEO</div>
+                </div>
+                <div class="founder-message">
+                    <h2>MESSAGE FROM OUR FOUNDER</h2>
+                    <p>At Law Wing, we began with a simple idea — to create a space where young minds could engage with
+                        the law not just as a subject, but as a powerful tool for change. This journey has been built on
+                        passion, purpose, and the belief that students can lead with impact when given the right
+                        platform.</p>
+                    <p>Every event we've hosted, every post we've shared and every step we've taken reflects our
+                        commitment to learning, leadership and legal empowerment. Law Wing is more than an organization
+                        - it's a movement driven by voices like yours.</p>
+                    <p>And this is just the beginning. Let's continue to grow, inspire, and lead - together.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEAM PAGE -->
+    <div id="team" class="page">
+        <div class="page-hero">
+            <h1>OUR BOARD OF DIRECTORS</h1>
+            <p>The Minds Behind The Movement</p>
+        </div>
+        <div class="team-section">
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="member-avatar">
+                        <img src="data/FOUNDER REAL.jpeg">
+                    </div>
+                    <div class="member-name">MR. DEV CHOUDHARY</div>
+                    <div class="member-title">Founder & CEO</div>
+                </div>
+                <div class="team-card">
+                    <div class="member-avatar">
+                        <img src="data/SAGAR.jpeg">
+                    </div>
+                    <div class="member-name">MR. SAGAR JAIN</div>
+                    <div class="member-title">MD & CLO</div>
+                </div>
+                <div class="team-card">
+                    <div class="member-avatar">
+                        <img src="data/president.jfif">
+                    </div>
+                    <div class="member-name">MS. ANJALI NAVRAJ</div>
+                    <div class="member-title">President</div>
+                </div>
+                <div class="team-card">
+                    <div class="member-avatar">
+                        <img src="data/executive director.jpeg">
+                    </div>
+                    <div class="member-name">MS. SHUCHI</div>
+                    <div class="member-title">Executive Director</div>
+                </div>
+                <div class="team-card">
+                    <div class="member-avatar">
+                        <img src="data/general manager.jfif">
+                    </div>
+                    <div class="member-name">MS. TARUSHI</div>
+                    <div class="member-title">General Secretary</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PUBLICATIONS PAGE -->
+    <div id="publications" class="page">
+        <div class="page-hero">
+            <h1>PUBLICATIONS</h1>
+            <p>Legal Insights & Research</p>
+        </div>
+        <div class="placeholder-page">
+            <div class="placeholder-content">
+                <h1>📚</h1>
+                <p>Coming Soon - Stay Tuned!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEGAL NEWS PAGE -->
+    <div id="news" class="page">
+        <div class="page-hero">
+            <h1>LEGAL NEWS</h1>
+            <p>Latest Updates & Developments</p>
+        </div>
+        <div class="placeholder-page">
+            <div class="placeholder-content">
+                <h1>📰</h1>
+                <p>Latest Updates Coming Soon</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- EVENTS PAGE -->
+    <div id="events" class="page">
+        <div class="page-hero">
+            <h1>OUR EVENTS</h1>
+            <p>Highlights Of Our Previous Events</p>
+        </div>
+
+        <div class="events-showcase">
+            <!-- PRAYAAS -->
+            <div class="event-mega-card">
+                <div class="event-header-section">
+                    <h2 class="event-title-main">PRAYAAS</h2>
+                    <p class="event-tagline">Law Wing's Flagship Legal Quiz Series</p>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">At Law Wing, we believe that learning should challenge, inspire and
+                        elevate. With that vision, we launched PRAYAAS - our flagship Constitutional Law Quiz Series -
+                        aimed at fostering a deeper understanding of India's foundational legal framework among students
+                        across the nation.</p>
+                    <p class="event-description">Over the course of five successful online editions, PRAYAAS has grown
+                        into a recognized platform for legal excellence and academic engagement. With participation from
+                        25+ universities across India, each edition has brought together some of the brightest legal
+                        minds — competing not just for prizes but for knowledge, pride and the spirit of learning.</p>
+                </div>
+            </div>
+
+            <!-- THE DIPLOMATS -->
+            <div class="event-mega-card">
+                <div class="event-header-section">
+                    <h2 class="event-title-main">THE DIPLOMATS</h2>
+                    <p class="event-tagline">Voices To Be Heard - MUN & YP</p>
+                    <p class="event-date">15th - 16th February 2025</p>
+                </div>
+                <div class="event-body">
+                    <div class="committees-showcase">
+                        <div class="committee-box">
+                            <h4>UNITED NATIONS GENERAL ASSEMBLY (UNGA)</h4>
+                            <p>The UNGA brought together delegates from across institutions to assess the global journey
+                                toward the Sustainable Development Goals. With an emphasis on equity, accountability and
+                                multilateral cooperation, the committee engaged in thought-provoking debates on
+                                progress, policy gaps, and the urgent need for unified global action.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>UNITED NATIONS HUMAN RIGHTS COUNCIL (UNHRC)</h4>
+                            <p>The UNHRC simulated a high-stakes discussion on the ethical challenges posed by
+                                artificial intelligence, with a sharp focus on its potential to perpetuate systemic
+                                discrimination and bias.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>LOK SABHA (LS)</h4>
+                            <p>Simulating the vibrant proceedings of the Indian Lok Sabha, this committee delved into
+                                the Waqf (Amendment) Bill, 2024, analysing its legal, social and constitutional
+                                implications.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>PUNJAB AND HARYANA LEGISLATIVE MEET</h4>
+                            <p>This joint legislative simulation reflected the intricate political, cultural and
+                                constitutional dynamics between Punjab and Haryana.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>ALL INDIA POLITICAL PARTIES MEET (AIPPM)</h4>
+                            <p>AIPPM provided a dynamic forum for intense deliberation on two of the most socially and
+                                politically significant issues in contemporary India.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>THE PRESS</h4>
+                            <p>Serving as the eyes and ears of the conference, The Press played a critical role in
+                                documenting, analysing and questioning the proceedings of every committee.</p>
+                        </div>
+                    </div>
+                    <div class="event-highlights-box">
+                        <h4>EVENT HIGHLIGHTS</h4>
+                        <ul class="highlights-list">
+                            <li>✦ Chief Guest: Shri. Manish Tewari, Member of Parliament (Chandigarh)</li>
+                            <li>✦ Chief Guest: Mr. Keshav Hingonia (IAS), Special Secretary Social Welfare</li>
+                            <li>✦ Array of cultural performances</li>
+                            <li>✦ Star Night at the Socials</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PU MUN -->
+            <div class="event-mega-card">
+                <div class="event-header-section">
+                    <h2 class="event-title-main">PU MUN</h2>
+                    <p class="event-tagline">Echoes Of The Diplomats - MUN & YP</p>
+                    <p class="event-date">22nd - 23rd March 2025</p>
+                </div>
+                <div class="event-body">
+                    <div class="committees-showcase">
+                        <div class="committee-box">
+                            <h4>UNITED NATIONS GENERAL ASSEMBLY (UNGA)</h4>
+                            <p>In this high-level multilateral simulation, delegates engaged in focused dialogue on the
+                                global counter-terrorism strategy, with emphasis on disrupting financial channels that
+                                fuel terrorism.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>UNITED NATIONS HUMAN RIGHTS COUNCIL (UNHRC)</h4>
+                            <p>The UNHRC convened to address religious violence and associated human rights violations,
+                                with focused deliberations on Bangladesh and China.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>LOK SABHA (LS)</h4>
+                            <p>The Lok Sabha engaged in critical re-examination of the Places of Worship Act, 1991,
+                                balancing secular fabric with historical narratives.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>ALL INDIA POLITICAL PARTIES MEET (AIPPM)</h4>
+                            <p>Diverse political ideologies deliberated on India's reservation policy, examining
+                                sub-classification and the creamy layer concept.</p>
+                        </div>
+                        <div class="committee-box">
+                            <h4>INTERNATIONAL PRESS (IP)</h4>
+                            <p>The International Press captured diplomacy through words, visuals, and satire, with
+                                journalists, photographers, and caricature artists.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VAKTA -->
+            <div class="event-mega-card">
+                <div class="event-header-section">
+                    <h2 class="event-title-main">VAKTA</h2>
+                    <p class="event-tagline">Declamation Competition</p>
+                    <p class="event-date">18th September 2025</p>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">VAKTA emerged as a dynamic platform for young orators on the theme
+                        "Living in the Age of Algorithms: AI & the Future of Human Responsibility." Students from 12+
+                        institutions engaged in thought-provoking debates on AI's ethical, social, and legal
+                        implications.</p>
+                </div>
+            </div>
+
+            <!-- SAMVIDHAN SAMRITI -->
+            <div class="event-mega-card">
+                <div class="event-header-section">
+                    <h2 class="event-title-main">SAMVIDHAN SAMRITI</h2>
+                    <p class="event-tagline">Constituent Assembly Debate Competition</p>
+                    <p class="event-date">22nd November 2025</p>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">A contemporary simulation inspired by India's historic Constituent
+                        Assembly, reimagined for the 21st century. Participants engaged as modern legislators,
+                        revisiting constitutional principles through today's lens, exploring governance, judicial
+                        accountability, and democratic reform.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gallery" class="page">
+        <div class="page-hero">
+            <h1>GALLERY</h1>
+            <p>Moments From Our Events</p>
+        </div>
+
+        <section class="gallery-section">
+
+            <h2 class="gallery-title">VAKTA</h2>
+            <div class="gallery-grid">
+                <img src="lawwing assets/P1.jpeg">
+                <img src="lawwing assets/P2.jpeg">
+                <img src="lawwing assets/P3.jpeg">
+                <img src="lawwing assets/P4.jpeg">
+                <img src="lawwing assets/P5.jpeg">
+                <img src="lawwing assets/P6.jpeg">
+                <img src="lawwing assets/P7.jpeg">
+                <img src="lawwing assets/P8.jpeg">
+            </div>
+
+            <h2 class="gallery-title">THE DIPLOMATS</h2>
+            <div class="gallery-grid">
+                <img src="lawwing assets/DP1.jpeg">
+                <img src="lawwing assets/DP2.jpeg">
+                <img src="lawwing assets/DP3.jpeg">
+                <img src="lawwing assets/DP4.jpeg">
+                <img src="lawwing assets/DP5.jpeg">
+                <img src="lawwing assets/DP6.jpeg">
+                <img src="lawwing assets/DP7.jpeg">
+                <img src="lawwing assets/DP8.jpeg">
+                <img src="lawwing assets/DP9.jpeg">
+                <img src="lawwing assets/DP10.jpeg">
+                <img src="lawwing assets/DP11.jpeg">
+                <img src="lawwing assets/DP12.jpeg">
+                <img src="lawwing assets/DP13.jpeg">
+                <img src="lawwing assets/DP14.jpeg">
+                <img src="lawwing assets/DP15.jpeg">
+                <img src="lawwing assets/DP16.jpeg">
+                <img src="lawwing assets/DP17.jpeg">
+                <img src="lawwing assets/DP18.jpeg">
+            </div>
+            <h2 class="gallery-title">PRAYAS</h2>
+            <div class="gallery-grid">
+                <img src="lawwing assets/PR1.jpeg">
+                <img src="lawwing assets/PR2.jpeg">
+                <img src="lawwing assets/PR3.jpeg">
+            </div>
+
+
+            <h2 class="gallery-title">PU MUN</h2>
+            <div class="gallery-grid">
+                <img src="lawwing assets/PUMUN1.jpeg">
+                <img src="lawwing assets/PUMUN2.jpeg">
+                <img src="lawwing assets/PUMUN3.jpeg">
+                <img src="lawwing assets/PUMUN4.jpeg">
+                <img src="lawwing assets/PUMUN5.jpeg">
+                <img src="lawwing assets/PUMUN6.jpeg">
+                <img src="lawwing assets/PUMUN7.jpeg">
+                <img src="lawwing assets/PUMUN8.jpeg">
+            </div>
+
+            <h2 class="gallery-title">SAMVIDHAN SAMRITI</h2>
+            <div class="gallery-grid">
+                <img src="lawwing assets/SS1.jpeg">
+                <img src="lawwing assets/SS2.jpeg">
+                <img src="lawwing assets/SS3.jpeg">
+                <img src="lawwing assets/SS4.jpeg">
+                <img src="lawwing assets/SS5.jpeg">
+                <img src="lawwing assets/SS6.jpeg">
+                <img src="lawwing assets/SS7.jpeg">
+                <img src="lawwing assets/SS8.jpeg">
+                <img src="lawwing assets/SS9.jpeg">
+                <img src="lawwing assets/SS10.jpeg">
+            </div>
+        </section>
+    </div>
+
+    <div id="contact" class="page">
+        <div class="page-hero">
+            <h1>GET IN TOUCH</h1>
+            <p>We'd Love To Hear From You</p>
+        </div>
+
+        <div class="contact-section">
+            <div class="section-header" style="margin-bottom: 6rem;">
+                <h2>REACH OUT TO US</h2>
+            </div>
+            <div class="contact-info-wrapper">
+                <div class="contact-info-item">
+                    <div class="contact-info-icon">☎</div>
+                    <h3>PHONE</h3>
+                    <a href="tel:+919991651071">+91 99916 51071</a>
+                    <a href="tel:+919855010473">+91 98550 10473</a>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-info-icon">✉</div>
+                    <h3>EMAIL</h3>
+                    <a href="mailto:lawwingonline@gmail.com">lawwingonline@gmail.com</a>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-info-icon">⌘</div>
+                    <h3>SOCIAL MEDIA</h3>
+                    <a href="https://instagram.com/lawwing__" target="_blank">@lawwing__</a>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-info-icon">⌘</div>
+                    <h3>SOCIAL MEDIA</h3>
+                    <a href="https://whatsapp.com/channel/0029VagkF6vLY6d1IXyLZT1Z"
+                        target="_blank">https://whatsapp.com/channel/0029VagkF6vLY6d1IXyLZT1Z</a>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-info-icon">⌘</div>
+                    <h3>LINKEDIN</h3>
+                    <a href="www.linkedin.com/in/law-wing-236049375"
+                        target="_blank">www.linkedin.com/in/law-wing-236049375</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-follow">
+            <h2>STAY CONNECTED</h2>
+            <p>For all updates, opportunities, and event announcements</p>
+            <a href="https://instagram.com/lawwing__" target="_blank" class="instagram-button">FOLLOW ON INSTAGRAM</a>
+        </div>
+
+        <div class="founder-section" style="padding: 150px 8%;">
+            <div style="max-width: 1400px; margin: 0 auto; text-align: center;">
+                <h2
+                    style="font-family: 'Playfair Display', serif; font-size: 4.0rem; margin-bottom: 4rem; font-weight: 900; color: var(--gold-accent);">
+                    OUR VISION FORWARD</h2>
+                <p style="font-size: 1.5rem; line-height: 2.5; margin-bottom: 3rem; color: #e0e0e0;">At Law Wing, we
+                    envision building a dynamic community of young legal minds who don't just learn the law but use it
+                    to lead, question and create impact. Our aim is to continue expanding access to legal knowledge,
+                    promoting civic engagement and empowering students through dialogue, research and meaningful
+                    opportunities.</p>
+                <p style="font-size: 1.5rem; line-height: 2.5; margin-bottom: 4rem; color: #e0e0e0;">As we grow, we
+                    remain committed to inclusivity, innovation and integrity - shaping the future of legal education,
+                    one step at a time.</p>
+                <p
+                    style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; color: #999999; font-weight: 300; letter-spacing: 2px;">
+                    "The journey has just begun - and the future belongs to those who dare to make the law their
+                    language of change."</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Law Wing. All Rights Reserved.</p>
+        <p class="footer-tagline">Empowering Legal Minds | Building Future Leaders</p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            document.getElementById(pageId).classList.add('active');
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('navMenu').classList.remove('mobile-active');
+            document.querySelector('.mobile-menu-toggle').classList.remove('active');
+        }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            menu.classList.toggle('mobile-active');
+            toggle.classList.toggle('active');
+        }
+
+        document.querySelector('.logo-container').addEventListener('click', function () {
+            showPage('home');
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector('nav a[onclick*="home"]').classList.add('active');
+        });
+
+        // Scroll to Top
+        window.addEventListener('scroll', function () {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.scrollY > 400) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function () {
+                document.getElementById('navMenu').classList.remove('mobile-active');
+                document.querySelector('.mobile-menu-toggle').classList.remove('active');
+            });
+        });
+        const heroParticles = document.querySelector('.hero-particles');
+        if (heroParticles) {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                heroParticles.appendChild(particle);
+            }
+        }
+    </script>
+</body>
+
+</html>
